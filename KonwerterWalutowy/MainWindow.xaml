@@ -1,0 +1,81 @@
+﻿<Window x:Class="KonwerterWalutowy.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:KonwerterWalutowy"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:viewmodels="clr-namespace:KonwerterWalutowy.ViewModels"
+        xmlns:views="clr-namespace:KonwerterWalutowy.Views"
+        mc:Ignorable="d" Height="450" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Topmost="True" WindowStyle="None" Loaded="MainWindow_OnLoaded">
+        <Window.Resources>
+            <DataTemplate x:Name="KonwerterViewmodel" DataType="{x:Type viewmodels:KonwerterViewModel}">
+                <views:KonwerterView DataContext="{Binding}"></views:KonwerterView>
+            </DataTemplate>
+            <DataTemplate x:Name="ArciwumViewmodel" DataType="{x:Type viewmodels:ArchiwumViewModel}">
+                <views:ArchiwumView DataContext="{Binding}"></views:ArchiwumView>
+            </DataTemplate>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="15*"/>
+            <ColumnDefinition Width="97*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="900*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="1" >
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="70"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <StackPanel>
+                <Label x:Name="clock" Margin="0,15,0,0" FontSize="20" FontFamily="Arial Black" HorizontalAlignment="Center">00:00:00</Label>
+                <Label x:Name="date" Margin="0,-15,0,0"  FontSize="12" FontFamily="Arial" HorizontalAlignment="Center"> 01.01.2019</Label>
+            </StackPanel>
+            <StackPanel Grid.Row="2" Background="DarkCyan">
+                <Button  Margin="0,10,0,0" 
+                         Content="Konwerter"
+                         Click="Konwerter_Clicked"
+                         Style="{StaticResource MaterialDesignFlatButton}"
+                         Width="95" Height="25"
+                        
+                         
+                         FontFamily="Arial"
+                         Foreground="Azure" 
+                         FontSize="11">
+
+                </Button>
+                <Button  Margin="0,10,0,0"   
+                         Style="{StaticResource MaterialDesignFlatButton}"
+                         Width="95" Height="25"
+                         
+                         Content="Archiwum "
+                         FontFamily="Arial"
+                         Foreground="Azure" Click="Archiwum_Clicked"
+                         FontSize="11">
+
+                </Button>
+            </StackPanel>
+
+        </Grid>
+
+        <Grid x:Name="BarGrid" Grid.ColumnSpan="2" Background="#FF50A629" MouseDown="BarGrid_OnMouseDown">
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
+                <Button x:Name="CloseButton" 
+                        Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Width="25" Height="25" 
+                        Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White"
+                        Click="CloseButton_OnClick">
+                    <materialDesign:PackIcon Kind="Power"></materialDesign:PackIcon>
+                </Button>
+            </StackPanel>
+        </Grid>
+
+        <ContentControl Grid.Column="1" Grid.Row="1" Content="{Binding}"></ContentControl>
+    </Grid>
+</Window>
